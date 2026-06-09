@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopeBridge Donations</title>
+    <style>
+        :root {
+            --bg: #f7fbf5;
+            --paper: #ffffff;
+            --ink: #17231c;
+            --muted: #607067;
+            --line: #dce8dd;
+            --green: #247a4d;
+            --green-dark: #155b38;
+            --mint: #dff5e6;
+            --gold: #f3b23c;
+            --coral: #e96b4c;
+            --shadow: 0 18px 45px rgba(23, 35, 28, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(223, 245, 230, 0.95), transparent 34rem),
+                linear-gradient(180deg, #fbfff8 0%, var(--bg) 42%, #eef7ee 100%);
+            color: var(--ink);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            border-radius: 8px;
+            background: var(--green);
+            color: #ffffff;
+            font-weight: 900;
+        }
+
+        .payment-link {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.72);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 34px;
+            align-items: stretch;
+            padding: 28px 0 36px;
+        }
+
+        .hero-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 430px;
+        }
+
+        .eyebrow {
+            width: fit-content;
+            border: 1px solid #c8e3ce;
+            border-radius: 999px;
+            padding: 8px 12px;
+            background: #ffffff;
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        h1 {
+            max-width: 780px;
+            margin: 20px 0 14px;
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 0.94;
+            letter-spacing: 0;
+        }
+
+        .hero-copy p {
+            max-width: 620px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            border: 0;
+            border-radius: 999px;
+            padding: 0 20px;
+            background: var(--green);
+            color: #ffffff;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .button.secondary {
+            border: 1px solid var(--line);
+            background: #ffffff;
+            color: var(--ink);
+        }
+
+        .button.full {
+            width: 100%;
+        }
+
+        .impact-panel {
+            display: grid;
+            gap: 16px;
+            align-content: center;
+            border-radius: 8px;
+            padding: 22px;
+            background: #ffffff;
+            box-shadow: var(--shadow);
+        }
+
+        .impact-photo {
+            position: relative;
+            min-height: 230px;
+            overflow: hidden;
+            border-radius: 8px;
+            background:
+                linear-gradient(135deg, rgba(21, 91, 56, 0.08), rgba(243, 178, 60, 0.18)),
+                url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1100&q=80") center/cover;
+        }
+
+        .impact-photo::after {
+            position: absolute;
+            inset: auto 16px 16px 16px;
+            border-radius: 8px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--green-dark);
+            content: "Fill your details, enter an amount, and pay directly to the NGO UPI account.";
+            font-weight: 800;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 14px;
+            background: #fbfef9;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 20px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 18px 0;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: 0;
+        }
+
+        .section-head p {
+            max-width: 470px;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .campaign-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            padding-bottom: 34px;
+        }
+
+        .campaign-card {
+            display: grid;
+            grid-template-columns: 180px minmax(0, 1fr);
+            gap: 18px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 10px 24px rgba(23, 35, 28, 0.08);
+        }
+
+        .campaign-image {
+            min-height: 220px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .campaign-image.sanitary {
+            background-image: url("https://images.unsplash.com/photo-1584473457409-ae5c91d7d8ec?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .campaign-image.education {
+            background-image: url("https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .campaign-image.scribe {
+            background-image: url("https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .campaign-image.shelter {
+            background-image: url("https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .campaign-image.psychology {
+            background-image: url("https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .campaign-body {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .campaign-body h3 {
+            margin: 4px 0 8px;
+            font-size: 23px;
+            letter-spacing: 0;
+        }
+
+        .campaign-body p {
+            margin: 0 0 18px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .progress-copy {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .progress-copy strong {
+            color: var(--ink);
+        }
+
+        .bar-shell {
+            height: 13px;
+            margin: 9px 0 14px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e6efe7;
+        }
+
+        .bar-fill {
+            height: 100%;
+            min-width: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--green), #53b56f, var(--gold));
+            transition: width 700ms ease;
+        }
+
+        .donate-form {
+            display: grid;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .amounts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .amount-chip {
+            border: 1px solid #cfe1d2;
+            border-radius: 999px;
+            padding: 9px 8px;
+            background: #ffffff;
+            cursor: pointer;
+            color: var(--green-dark);
+            font: inherit;
+            font-weight: 800;
+        }
+
+        input {
+            width: 100%;
+            min-height: 44px;
+            border: 1px solid #cfe1d2;
+            border-radius: 8px;
+            padding: 0 12px;
+            background: #ffffff;
+            color: var(--ink);
+            font: inherit;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(36, 122, 77, 0.14);
+            outline: none;
+        }
+
+        .payment-panel {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: center;
+            margin: 8px 0 42px;
+            border: 1px solid #cfe1d2;
+            border-radius: 8px;
+            padding: 18px;
+            background: #ffffff;
+        }
+
+        .payment-panel h2 {
+            font-size: 24px;
+        }
+
+        .payment-panel p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .upi-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .upi-box img {
+            width: 96px;
+            height: 96px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .toast {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 5;
+            max-width: min(420px, calc(100% - 36px));
+            border-radius: 8px;
+            padding: 14px 16px;
+            background: var(--green-dark);
+            color: #ffffff;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(14px);
+            transition: 220ms ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .campaign-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav,
+            .section-head,
+            .payment-panel,
+            .upi-box {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 44px;
+            }
+
+            .stats,
+            .campaign-card,
+            .payment-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .campaign-image {
+                min-height: 190px;
+            }
+
+            .amounts {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="shell nav">
+        <div class="brand">
+            <span class="brand-mark">H</span>
+            <span>{{ ngo_name }}</span>
+        </div>
+        <a class="payment-link" href="#payment-info">NGO UPI account</a>
+    </header>
+
+    <main class="shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Direct UPI giving to the NGO account</span>
+                <h1>Choose a cause and donate in seconds.</h1>
+                <p>Fill your details, enter the amount, and your phone will open the UPI payment app with the NGO account and amount already filled.</p>
+                <div class="hero-actions">
+                    <a class="button" href="#campaigns">View campaigns</a>
+                    <a class="button secondary" href="#payment-info">Payment details</a>
+                </div>
+            </div>
+
+            <aside class="impact-panel" aria-label="Donation summary">
+                <div class="impact-photo"></div>
+                <div class="stats">
+                    <div class="stat">
+                        <strong>Rs. {{ total_raised }}</strong>
+                        <span>Raised</span>
+                    </div>
+                    <div class="stat">
+                        <strong>Rs. {{ total_goal }}</strong>
+                        <span>Total goal</span>
+                    </div>
+                    <div class="stat">
+                        <strong>{{ verified_campaigns }}/{{ campaigns|length }}</strong>
+                        <span>Active causes</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section id="campaigns">
+            <div class="section-head">
+                <div>
+                    <h2>Campaigns</h2>
+                </div>
+                <p>Pick an amount or enter your own. On mobile, Donate with UPI opens GPay, PhonePe, Paytm, or another UPI app to pay the NGO account.</p>
+            </div>
+
+            <div class="campaign-grid">
+                {% for campaign in campaigns %}
+                <article class="campaign-card">
+                    <div class="campaign-image {{ campaign.image }}" role="img" aria-label="{{ campaign.title }}"></div>
+
+                    <div class="campaign-body">
+                        <h3>{{ campaign.title }}</h3>
+                        <p>{{ campaign.description }}</p>
+
+                        <div class="progress-copy">
+                            <span><strong>Rs. {{ campaign.total }}</strong> raised</span>
+                            <span>Goal Rs. {{ campaign.goal }}</span>
+                        </div>
+                        <div class="bar-shell" aria-label="{{ campaign.progress }} percent funded">
+                            <div class="bar-fill" style="width: {{ campaign.progress }}%"></div>
+                        </div>
+                        <div class="progress-copy">
+                            <span>{{ campaign.progress }}% funded</span>
+                            <span>Rs. {{ campaign.remaining }} left</span>
+                        </div>
+
+                        <form class="donate-form" onsubmit="startPayment(event, {{ campaign.id }}, '{{ campaign.title }}')">
+                            <div class="amounts" aria-label="Suggested amounts">
+                                <button class="amount-chip" type="button" onclick="setAmount(this, 250)">Rs. 250</button>
+                                <button class="amount-chip" type="button" onclick="setAmount(this, 500)">Rs. 500</button>
+                                <button class="amount-chip" type="button" onclick="setAmount(this, 1000)">Rs. 1000</button>
+                            </div>
+                            <input name="name" placeholder="Your name" required maxlength="50">
+                            <input name="phone" placeholder="Phone number" required maxlength="15">
+                            <input name="amount" type="number" placeholder="Enter amount" required min="1">
+                            <button class="button full" type="submit">Donate with UPI</button>
+                        </form>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="payment-info" class="payment-panel">
+            <div>
+                <h2>{{ ngo_name }} Payment Account</h2>
+                <p><strong>UPI ID:</strong> {{ upi_id }}</p>
+                <p>Use any UPI app, including GPay, PhonePe, or Paytm. The Donate button fills this UPI ID and your selected amount automatically.</p>
+            </div>
+            <div class="upi-box">
+                <img src="/static/qr.png" alt="UPI QR code">
+                <a class="button secondary" href="upi://pay?pa={{ upi_id }}&pn={{ ngo_name|urlencode }}&cu=INR">Open UPI app</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        function setAmount(button, amount) {
+            const form = button.closest("form");
+            form.amount.value = amount;
+            form.amount.focus();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+            window.setTimeout(() => toast.classList.remove("show"), 3600);
+        }
+
+        function startPayment(event, campaignId, campaignTitle) {
+            event.preventDefault();
+
+            const form = event.target;
+            const name = form.name.value.trim();
+            const phone = form.phone.value.trim();
+            const amount = form.amount.value;
+
+            if (!name || !phone || !amount) {
+                showToast("Please fill all details first.");
+                return;
+            }
+
+            const donorData = {
+                campaign_id: campaignId,
+                name: name,
+                phone: phone,
+                amount: amount
+            };
+
+            const note = encodeURIComponent(campaignTitle);
+            const upi = `upi://pay?pa={{ upi_id }}&pn={{ ngo_name|urlencode }}&am=${amount}&cu=INR&tn=${note}`;
+
+            fetch("/confirm_payment", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(donorData)
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Donation could not be saved.");
+                }
+                showToast("Opening your UPI app to pay the NGO account.");
+                window.location.href = upi;
+            })
+            .catch(() => showToast("Something went wrong. Please try again."));
+        }
+    </script>
+</body>
+</html>
