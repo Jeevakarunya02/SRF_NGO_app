@@ -5,7 +5,7 @@ import db_setup
 app = Flask(__name__)
 
 UPI_ID = "7540096440@okbizaxis"
-NGO_NAME = "Siddharth Rasi Foundation NGO"
+NGO_NAME = "Siddharth Rasi Foundation"
 
 CAMPAIGN_SEEDS = [
     (
@@ -158,7 +158,7 @@ def confirm_payment():
         (campaign_id, name, phone, amount, district, state, payment_method)
         VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
-        (campaign_id, name, phone, amount, "Chennai", "TN", "UPI-Verified"),
+        (campaign_id, name, phone, amount, "Chennai", "TN", "Pending"),
     )
 
     conn.commit()
