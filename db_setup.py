@@ -36,12 +36,10 @@ CAMPAIGNS = [
 conn = sqlite3.connect("donations.db")
 cursor = conn.cursor()
 
-cursor.execute("DROP TABLE IF EXISTS campaigns")
-cursor.execute("DROP TABLE IF EXISTS donations")
 
 cursor.execute(
     """
-    CREATE TABLE campaigns (
+    CREATE TABLE IF NOT EXISTS campaigns (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
         description TEXT,
@@ -54,7 +52,7 @@ cursor.execute(
 
 cursor.execute(
     """
-    CREATE TABLE donations (
+    CREATE TABLE IF NOT EXISTS donations (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         campaign_id INTEGER,
         name TEXT,
@@ -67,14 +65,17 @@ cursor.execute(
     )
     """
 )
+cursor.execute("SELECT COUNT(*) FROM campaigns")
+count = cursor.fetchone()[0]
 
-cursor.executemany(
-    """
-    INSERT INTO campaigns (title, description, goal, image)
-    VALUES (?, ?, ?, ?)
-    """,
-    CAMPAIGNS,
-)
+if count == 0:
+    cursor.executemany(
+        """
+        INSERT INTO campaigns (title, description, goal, image)
+        VALUES (?, ?, ?, ?)
+        """,
+        CAMPAIGNS,
+    )
 
 conn.commit()
 conn.close()
