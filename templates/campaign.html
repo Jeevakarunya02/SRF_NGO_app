@@ -596,7 +596,7 @@
             };
 
             const note = encodeURIComponent(campaignTitle);
-            const upi = `upi://pay?pa={{ upi_id }}&pn={{ ngo_name|urlencode }}&am=${amount}&cu=INR&tn=${note}`;
+            const upi = `upi://pay?pa={{ upi_id }}&am=${amount}&cu=INR`;;
 
             fetch("/confirm_payment", {
                 method: "POST",
