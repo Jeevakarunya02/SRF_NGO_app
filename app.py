@@ -1,5 +1,6 @@
 from flask import Flask, abort, redirect, render_template, request
 import sqlite3
+import db_setup
 
 app = Flask(__name__)
 
@@ -221,7 +222,7 @@ def reject(id):
 
     return redirect("/admin")
 
-
+import db_setup
 if __name__ == "__main__":
     ensure_campaigns()
     app.run(host="0.0.0.0", port=5000, debug=True)
