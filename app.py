@@ -250,6 +250,11 @@ def reject(id):
 
     return redirect("/admin")
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/admin-login")
+
 import db_setup
 if __name__ == "__main__":
     ensure_campaigns()
