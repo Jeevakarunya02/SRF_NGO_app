@@ -1,8 +1,11 @@
-from flask import Flask, abort, redirect, render_template, request
+from flask import Flask, abort, redirect, render_template, request, session
 import sqlite3
 import db_setup
 
 app = Flask(__name__)
+
+app.secret_key = "SRF_NGO_2026"
+ADMIN_PASSWORD = "SRF_Admin!@#2026"
 
 UPI_ID = "7540096440@okbizaxis"
 NGO_NAME = "Siddharth Rasi Foundation"
@@ -166,9 +169,30 @@ def confirm_payment():
 
     return "OK"
 
+@app.route("/admin-login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        password = request.form.get("password")
+
+        if password == ADMIN_PASSWORD:
+            session["admin"] = True
+            return redirect("/admin")
+
+        return "Invalid Password"
+
+    return """
+    <h2>Admin Login</h2>
+    <form method="post">
+        <input type="password" name="password" placeholder="Enter Password">
+        <button type="submit">Login</button>
+    </form>
+    """
 
 @app.route("/admin")
 def admin():
+    if not session.get("admin"):
+        return redirect("/admin-login")
+
     ensure_campaigns()
     conn = get_connection()
     cursor = conn.cursor()
@@ -192,6 +216,8 @@ def admin():
 
 @app.route("/approve/<int:id>", methods=["POST"])
 def approve(id):
+    if not session.get("admin"):
+        return redirect("/admin-login")
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -212,6 +238,8 @@ def approve(id):
 
 @app.route("/reject/<int:id>", methods=["POST"])
 def reject(id):
+    if not session.get("admin"):
+        return redirect("/admin-login")
     conn = get_connection()
     cursor = conn.cursor()
 
