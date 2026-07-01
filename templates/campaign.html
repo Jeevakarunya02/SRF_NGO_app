@@ -596,7 +596,8 @@
             };
 
             const note = encodeURIComponent(campaignTitle);
-            const upi = `upi://pay?pa={{ upi_id }}&am=${amount}&cu=INR`;;
+            const upi = `upi://pay?pa={{ upi_id }}&cu=INR`;
+            // const upi = `upi://pay?pa={{ upi_id }}&am=${amount}&cu=INR`;;
 
             fetch("/confirm_payment", {
                 method: "POST",
@@ -608,7 +609,8 @@
                     throw new Error("Donation could not be saved.");
                 }
                 showToast("Opening your UPI app to pay the NGO account.");
-                window.location.href = upi;
+                window.open(upi, "_self");
+                // window.location.href = upi;
             })
             .catch(() => showToast("Something went wrong. Please try again."));
         }
