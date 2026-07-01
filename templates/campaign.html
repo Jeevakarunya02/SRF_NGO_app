@@ -599,11 +599,11 @@
             const upi = `upi://pay?pa={{ upi_id }}&cu=INR`;
             // const upi = `upi://pay?pa={{ upi_id }}&am=${amount}&cu=INR`;;
 
-            fetch("/confirm_payment", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(donorData)
-            })
+            //fetch("/confirm_payment", {
+                //method: "POST",
+                //headers: {"Content-Type": "application/json"},
+                //body: JSON.stringify(donorData)
+            //})
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Donation could not be saved.");
